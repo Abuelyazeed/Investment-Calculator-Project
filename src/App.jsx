@@ -2,7 +2,6 @@ import { useState } from "react";
 import Header from "./components/Header";
 import ResultsTable from "./components/ResultsTable";
 import UserInput from "./components/UserInput";
-import { calculateInvestmentResults, formatter } from "./util/investment";
 
 function App() {
   const [userInput, setUserInput] = useState({
@@ -14,17 +13,15 @@ function App() {
   function handleOnChange(e) {
     const { id, value } = e.target;
     setUserInput((prevInput) => {
-      const newInput = { ...prevInput, [id]: parseFloat(value) };
-      return newInput;
+      return { ...prevInput, [id]: parseFloat(value) };
     });
   }
-  const annualData = calculateInvestmentResults(userInput);
-  console.log(annualData);
+
   return (
     <>
       <Header />
       <UserInput input={userInput} onChange={handleOnChange} />
-      <ResultsTable data={annualData} input={userInput} formatter={formatter} />
+      <ResultsTable input={userInput} />
     </>
   );
 }

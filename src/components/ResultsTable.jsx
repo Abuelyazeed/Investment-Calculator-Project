@@ -1,10 +1,12 @@
-import React from "react";
+import { calculateInvestmentResults, formatter } from "../util/investment";
 
-function ResultsTable({ data, input, formatter }) {
+function ResultsTable({ input }) {
+  const resultData = calculateInvestmentResults(input);
+
   function calculateTotalInterest(year) {
     let totalInterest = 0;
     for (let i = 0; i < year; i++) {
-      totalInterest += data[i].interest;
+      totalInterest += resultData[i].interest;
     }
     return totalInterest;
   }
@@ -22,15 +24,15 @@ function ResultsTable({ data, input, formatter }) {
           </tr>
         </thead>
         <tbody>
-          {data.map((d) => (
-            <tr key={d.year}>
-              <td>{d.year}</td>
-              <td>{formatter.format(d.valueEndOfYear)}</td>
-              <td>{formatter.format(d.interest)}</td>
-              <td>{formatter.format(calculateTotalInterest(d.year))}</td>
+          {resultData.map((data) => (
+            <tr key={data.year}>
+              <td>{data.year}</td>
+              <td>{formatter.format(data.valueEndOfYear)}</td>
+              <td>{formatter.format(data.interest)}</td>
+              <td>{formatter.format(calculateTotalInterest(data.year))}</td>
               <td>
                 {formatter.format(
-                  input.initialInvestment + d.annualInvestment * d.year
+                  input.initialInvestment + data.annualInvestment * data.year
                 )}
               </td>
             </tr>
