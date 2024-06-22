@@ -1,6 +1,14 @@
 import React from "react";
 
-function ResultsTable() {
+function ResultsTable({ data, input, formatter }) {
+  function calculateTotalInterest(yearIndex) {
+    let totalInterest = 0;
+    for (let i = 0; i < yearIndex; i++) {
+      totalInterest += data[i].interest;
+    }
+    return totalInterest;
+  }
+
   return (
     <section className="center">
       <table id="result">
@@ -14,13 +22,19 @@ function ResultsTable() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>$17,100</td>
-            <td>$900</td>
-            <td>$900</td>
-            <td>$16,200</td>
-          </tr>
+          {data.map((d) => (
+            <tr key={d.year}>
+              <td>{d.year}</td>
+              <td>{formatter.format(d.valueEndOfYear)}</td>
+              <td>{formatter.format(d.interest)}</td>
+              <td>{formatter.format(calculateTotalInterest(d.year))}</td>
+              <td>
+                {formatter.format(
+                  input.initialInvestment + d.annualInvestment * d.year
+                )}
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </section>
