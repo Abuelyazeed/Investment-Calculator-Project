@@ -21,7 +21,11 @@ function App() {
     <>
       <Header />
       <UserInput input={userInput} onChange={handleOnChange} />
-      <ResultsTable input={userInput} />
+      {userInput.duration > 0 ? (
+        <ResultsTable input={userInput} />
+      ) : (
+        <p className="center">Please enter a valid duration</p>
+      )}
     </>
   );
 }
