@@ -1,9 +1,9 @@
 import React from "react";
 
 function ResultsTable({ data, input, formatter }) {
-  function calculateTotalInterest(yearIndex) {
+  function calculateTotalInterest(year) {
     let totalInterest = 0;
-    for (let i = 0; i < yearIndex; i++) {
+    for (let i = 0; i < year; i++) {
       totalInterest += data[i].interest;
     }
     return totalInterest;

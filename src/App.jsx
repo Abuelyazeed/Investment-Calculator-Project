@@ -13,7 +13,10 @@ function App() {
   });
   function handleOnChange(e) {
     const { id, value } = e.target;
-    setUserInput({ ...userInput, [id]: value });
+    setUserInput((prevInput) => {
+      const newInput = { ...prevInput, [id]: parseFloat(value) };
+      return newInput;
+    });
   }
   const annualData = calculateInvestmentResults(userInput);
   console.log(annualData);
